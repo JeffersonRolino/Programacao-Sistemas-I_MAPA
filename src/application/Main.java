@@ -53,23 +53,27 @@ public class Main {
         int matricula = 0;
         String nome = null;
         double[] notas = new double[3];
-        char[] assiduidade = new char[60];
+        int assiduidade = 0;
+
+        Aluno aluno = new Aluno();
 
 
         System.out.println("Informe a matrícula do Aluno: ");
         if(scanner.hasNextInt()) {
             matricula = scanner.nextInt();
+            aluno.setMatricula(matricula);
             scanner.nextLine();
         }
 
         System.out.println("Informe o Nome do Aluno: ");
         if(scanner.hasNextLine()) {
             nome = scanner.nextLine();
+            aluno.setNome(nome);
         }
 
-        System.out.println("Informe as três notas do Aluno: ");
+        System.out.println("Informe as Notas do Aluno...");
         for (int i = 0; i < notas.length; i++){
-            System.out.printf("Informe a nota da prova %d\n", i + 1);
+            System.out.printf("Nota da prova %d: ", i + 1);
             if(scanner.hasNextDouble()) {
                 notas[i] = scanner.nextDouble();
                 scanner.nextLine();
@@ -81,28 +85,35 @@ public class Main {
                 return;
             }
         }
+        aluno.setNotas(notas);
 
 
-        System.out.println("Informe a Assiduidade do Aluno - [0]falta   [1]presente: ");
-        for (int i = 0; i < assiduidade.length; i++){
-            if(scanner.hasNextInt()) {
-                System.out.printf("O Aluno estava Presente na Aula %d - [0]falta   [1]presente\n", i + 1);
-                assiduidade[i] = scanner.next().charAt(0);
-                scanner.nextLine();
-            }
-            else {
+        System.out.println("Informe o número de presenças do Aluno nas 60 aulas: ");
+        if(scanner.hasNextInt()) {
+            assiduidade = scanner.nextInt();
+            scanner.nextLine();
+
+            if(assiduidade > 60){
                 System.out.println("\n\tValor inválido...");
                 System.out.println("\tRetornando ao Menu Principal...\n");
                 scanner.nextLine();
                 return;
             }
+            else {
+                aluno.setAssiduidade(assiduidade);
+                aluno.setPercentualDeFrequencia();
+            }
         }
-
-        Aluno aluno  = new Aluno(matricula, nome, notas, assiduidade);
+        else {
+            System.out.println("\n\tValor inválido...");
+            System.out.println("\tRetornando ao Menu Principal...\n");
+            scanner.nextLine();
+            return;
+        }
 
         alunos.add(aluno);
 
-        System.out.println("\nFuncionário cadastrado com sucesso: ");
+        System.out.println("\nAluno cadastrado com sucesso: ");
         System.out.println("--------------------------------------------------------");
         System.out.println(aluno);
         System.out.println("--------------------------------------------------------");

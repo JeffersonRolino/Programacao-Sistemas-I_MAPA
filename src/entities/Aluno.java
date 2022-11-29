@@ -4,26 +4,25 @@ public class Aluno {
     private int matricula;
     private String nome;
     private double[] notas;
-    private char[] assiduidade;
+    private int assiduidade;
+    private double percentualDeFrequencia;
 
     //Constructors
     public Aluno() {
-        this.notas = new double[3];
-        this.assiduidade = new char[60];
     }
 
     public Aluno(int matricula, String nome) {
         this.matricula = matricula;
         this.nome = nome;
         this.notas = new double[3];
-        this.assiduidade = new char[60];
     }
 
-    public Aluno(int matricula, String nome, double[] notas, char[] assiduidade) {
+    public Aluno(int matricula, String nome, double[] notas, int assiduidade, double percentualDeFrequencia) {
         this.matricula = matricula;
         this.nome = nome;
         this.notas = notas;
         this.assiduidade = assiduidade;
+        this.percentualDeFrequencia = percentualDeFrequencia;
     }
 
     //Getters and Setters
@@ -51,11 +50,40 @@ public class Aluno {
         this.notas = notas;
     }
 
-    public char[] getAssiduidade() {
+    public int getAssiduidade() {
         return assiduidade;
     }
 
-    public void setAssiduidade(char[] assiduidade) {
+    public void setAssiduidade(int assiduidade) {
         this.assiduidade = assiduidade;
+    }
+
+    public double getPercentualDeFrequencia() {
+        return percentualDeFrequencia;
+    }
+
+    public void setPercentualDeFrequencia() {
+        this.percentualDeFrequencia = ((double)this.assiduidade / 60) * 100;
+    }
+
+    //Métodos
+    public double calcularMediaNotas(double[] notas){
+        double soma = 0;
+        for (int i = 0; i < notas.length; i++){
+            soma += notas[i];
+        }
+        return soma / 3;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                        Aluno: %s
+                        Média: %.2f\s
+                        Percentual de Presença: %.2f""",
+                this.nome,
+                calcularMediaNotas(this.notas),
+                this.percentualDeFrequencia
+        ) + "%";
     }
 }

@@ -64,6 +64,13 @@ public class Main {
             aluno.setMatricula(matricula);
             scanner.nextLine();
         }
+        else {
+            System.out.println("\n\tValor inválido...");
+            System.out.println("\tPermitido somente números inteiros...");
+            System.out.println("\tRetornando ao Menu Principal...\n");
+            scanner.nextLine();
+            return;
+        }
 
         System.out.println("Informe o Nome do Aluno: ");
         if(scanner.hasNextLine()) {
@@ -73,13 +80,24 @@ public class Main {
 
         System.out.println("Informe as Notas do Aluno...");
         for (int i = 0; i < notas.length; i++){
+            double nota = 0;
             System.out.printf("Nota da prova %d: ", i + 1);
             if(scanner.hasNextDouble()) {
-                notas[i] = scanner.nextDouble();
+                nota = scanner.nextDouble();
                 scanner.nextLine();
+                if(nota >= 0 && nota <= 100){
+                    notas[i] = nota;
+                }
+                else {
+                    System.out.println("\n\tValor inválido...");
+                    System.out.println("\tInforme um número inteiro de 0 a 100...");
+                    System.out.println("\tRetornando ao Menu Principal...\n");
+                    return;
+                }
             }
             else {
                 System.out.println("\n\tValor inválido...");
+                System.out.println("\tPermitido somente números...");
                 System.out.println("\tRetornando ao Menu Principal...\n");
                 scanner.nextLine();
                 return;
@@ -93,19 +111,20 @@ public class Main {
             assiduidade = scanner.nextInt();
             scanner.nextLine();
 
-            if(assiduidade > 60){
-                System.out.println("\n\tValor inválido...");
-                System.out.println("\tRetornando ao Menu Principal...\n");
-                scanner.nextLine();
-                return;
-            }
-            else {
+            if(assiduidade >= 0 && assiduidade <= 60){
                 aluno.setAssiduidade(assiduidade);
                 aluno.setPercentualDeFrequencia();
+            }
+            else {
+                System.out.println("\n\tValor inválido...");
+                System.out.println("\tInforme um número inteiro de 0 a 60...");
+                System.out.println("\tRetornando ao Menu Principal...\n");
+                return;
             }
         }
         else {
             System.out.println("\n\tValor inválido...");
+            System.out.println("\tPermitido somente números inteiros...");
             System.out.println("\tRetornando ao Menu Principal...\n");
             scanner.nextLine();
             return;
